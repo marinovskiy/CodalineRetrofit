@@ -1,0 +1,22 @@
+package com.example.alex.codalineretrofit.api;
+
+import com.example.alex.codalineretrofit.entities.User;
+
+import java.util.List;
+
+public class UsersResponse {
+
+    private List<User> users;
+
+    public UsersResponse(List<User> users) {
+        this.users = users;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+}
