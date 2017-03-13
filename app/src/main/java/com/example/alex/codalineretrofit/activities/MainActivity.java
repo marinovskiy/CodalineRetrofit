@@ -11,6 +11,9 @@ import com.example.alex.codalineretrofit.R;
 import com.example.alex.codalineretrofit.adapters.UsersRecyclerViewAdapter;
 import com.example.alex.codalineretrofit.api.ApiClient;
 import com.example.alex.codalineretrofit.api.UsersResponse;
+import com.example.alex.codalineretrofit.entities.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        ApiClient.getInstance().users().enqueue(new Callback<UsersResponse>() {
+        ApiClient.getInstance().users().enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 progressDialog.dismiss();
 
                 if (response.isSuccessful()) {
-                    usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(response.body().getUsers());
+                    usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(response.body());
                     rvUsers.setAdapter(usersRecyclerViewAdapter);
                 } else {
                     Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
@@ -50,11 +53,32 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UsersResponse> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 progressDialog.dismiss();
 
                 Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+
+//        ApiClient.getInstance().users().enqueue(new Callback<UsersResponse>() {
+//            @Override
+//            public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
+//                progressDialog.dismiss();
+//
+//                if (response.isSuccessful()) {
+//                    usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(response.body());
+//                    rvUsers.setAdapter(usersRecyclerViewAdapter);
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UsersResponse> call, Throwable t) {
+//                progressDialog.dismiss();
+//
+//                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

@@ -1,11 +1,15 @@
 package com.example.alex.codalineretrofit.api;
 
+import com.example.alex.codalineretrofit.entities.User;
+
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiService {
 
     @GET("users")
-    Call<UsersResponse> users();
+    Call<List<User>> users();
 
 }
